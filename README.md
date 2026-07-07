@@ -1,103 +1,68 @@
-# Management Empirical Topic Builder
+# Paper Topic Builder
 
-Management Empirical Topic Builder is a Codex Skill for generating evidence-based empirical management research topics from a Zotero literature collection.
+Paper Topic Builder is a Codex Skill for generating evidence-based empirical paper topics from a Zotero literature collection. It is designed for management, entrepreneurship, organization studies, information systems, marketing, strategy, and related social science research.
 
-It reads a specified Zotero Collection, subcollection, tag, saved search, or fallback bibliography/PDF corpus, then classifies papers, extracts findings and limitations, maps quantitative variable roles and qualitative mechanisms, synthesizes theory gaps, rebuilds variable networks, generates empirical model candidates, and evaluates topics from an SSCI management reviewer perspective.
+The Skill reads a specified Zotero Collection, subcollection, tag, or fallback bibliography/PDF corpus, then classifies papers, extracts findings and limitations, maps quantitative variable roles, identifies qualitative mechanisms, synthesizes theory gaps, recombines variable networks, generates topic cards, and evaluates candidate topics from an SSCI-style reviewer perspective.
+
+中文介绍见 [README.zh-CN.md](README.zh-CN.md). English guide: [README.en.md](README.en.md).
 
 ## Author
 
-- Author / Creator: 视频号「扣子说AI」
-- Project: `management-empirical-topic-builder`
+- Author: 视频号「扣子说AI」
+- Purpose: help researchers turn Zotero literature collections into transparent, evidence-grounded empirical research topics.
 
-中文介绍见 [README.zh-CN.md](README.zh-CN.md).  
-English introduction: [README.en.md](README.en.md).
+## Install
 
-## Installation
-
-This repository is designed to be installed as a local Codex Skill.
-
-1. Clone this repository:
+Clone this repository into your Codex skills directory with the new Skill folder name:
 
 ```bash
-git clone https://github.com/longkou1988/management-empirical-topic-builder.git
+git clone https://github.com/longkou1988/management-empirical-topic-builder.git ~/.codex/skills/paper-topic-builder
 ```
 
-2. Copy or place the repository folder under your Codex skills directory:
+Restart Codex, then use the Skill name:
 
 ```text
-~/.codex/skills/management-empirical-topic-builder/
+$paper-topic-builder
 ```
 
-3. Make sure the final structure contains:
-
-```text
-~/.codex/skills/management-empirical-topic-builder/SKILL.md
-~/.codex/skills/management-empirical-topic-builder/references/
-~/.codex/skills/management-empirical-topic-builder/scripts/
-```
-
-4. Start a new Codex thread, or restart Codex if the Skill list has not refreshed.
-
-5. If you want workbook template generation support, install the optional Python dependency:
-
-```bash
-pip install -r requirements.txt
-```
+If you installed the earlier local folder name `management-empirical-topic-builder`, rename it to `paper-topic-builder`.
 
 ## Usage
 
-In Codex, call the Skill by name and specify the Zotero Collection, subcollection, tag, saved search, or fallback bibliography/PDF corpus you want to analyze.
-
-Example:
+Example prompt:
 
 ```text
-Use $management-empirical-topic-builder to analyze my Zotero Collection: entrepreneurship/women entrepreneurship
+Use $paper-topic-builder to analyze my Zotero Collection: 创业相关/女性创业
 ```
 
-Chinese example:
+You can also add constraints:
 
 ```text
-使用 $management-empirical-topic-builder 分析我的 Zotero Collection：创业相关/女性创业
+Use $paper-topic-builder to analyze my Zotero Collection: digital entrepreneurship. Focus on theory gaps, quantitative variable roles, and SSCI topic ideas.
 ```
 
-You can also add constraints such as target journal direction, year range, country or region, industry context, theory lens, research method, or preferred empirical design.
+## Outputs
 
-## What It Produces
+The Skill produces these files under `output/`:
 
-The Skill is designed to create these outputs under `output/` during use:
+1. `literature_matrix.xlsx`
+2. `variable_role_matrix.xlsx`
+3. `qualitative_mechanism_matrix.xlsx`
+4. `theory_gap_matrix.xlsx`
+5. `variable_network_summary.md`
+6. `topic_cards.md`
+7. `model_candidates.md`
+8. `final_research_story.md`
+9. `reviewer_evaluation.md`
 
-- `literature_matrix.xlsx`
-- `variable_role_matrix.xlsx`
-- `qualitative_mechanism_matrix.xlsx`
-- `theory_gap_matrix.xlsx`
-- `variable_network_summary.md`
-- `topic_cards.md`
-- `model_candidates.md`
-- `final_research_story.md`
-- `reviewer_evaluation.md`
+## Quality Rules
 
-## Core Principle
-
-The Skill is evidence-first. It must not invent literature facts, variables, theoretical foundations, findings, DOI, journal names, or evidence text. Unsupported fields are explicitly marked as insufficient to judge.
-
-## Repository Layout
-
-```text
-.
-├── SKILL.md
-├── README.md
-├── README.zh-CN.md
-├── README.en.md
-├── agents/
-│   └── openai.yaml
-├── references/
-│   ├── analysis-rules.md
-│   ├── extraction-schema.md
-│   └── zotero-integration.md
-└── scripts/
-    └── create_workbook_templates.py
-```
+- Zotero is used first when available.
+- Exported `.bib`, `.ris`, `.csv`, or local PDFs are only fallback inputs.
+- Literature facts, DOI, journal names, theories, variables, paths, and findings must come from Zotero metadata, abstracts, PDFs, notes, annotations, or fallback source files.
+- Unsupported fields must be marked as insufficient evidence instead of being fabricated.
+- Variable roles and model paths require evidence sections and confidence labels.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
+MIT

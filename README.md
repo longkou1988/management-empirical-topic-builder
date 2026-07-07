@@ -16,7 +16,7 @@ The Skill reads a specified Zotero Collection, subcollection, tag, or fallback b
 Clone this repository into your Codex skills directory with the new Skill folder name:
 
 ```bash
-git clone https://github.com/longkou1988/management-empirical-topic-builder.git ~/.codex/skills/paper-topic-builder
+git clone https://github.com/longkou1988/paper-topic-builder.git ~/.codex/skills/paper-topic-builder
 ```
 
 Restart Codex, then use the Skill name:
@@ -25,7 +25,7 @@ Restart Codex, then use the Skill name:
 $paper-topic-builder
 ```
 
-If you installed the earlier local folder name `management-empirical-topic-builder`, rename it to `paper-topic-builder`.
+If you installed an earlier local folder name, rename it to `paper-topic-builder`.
 
 ## Usage
 

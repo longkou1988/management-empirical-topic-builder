@@ -1,74 +1,105 @@
-# Management Empirical Topic Builder Introduction
+# Paper Topic Builder
 
-`management-empirical-topic-builder` is a Codex Skill for generating evidence-based empirical management research topics from a Zotero literature collection.
+Paper Topic Builder is a Codex Skill for generating evidence-based empirical paper topics from a Zotero literature collection. It is designed for management, entrepreneurship, organization studies, strategy, marketing, information systems, and related social science research.
 
-Its purpose is to transform a specified Zotero Collection, subcollection, tag, saved search, or fallback bibliography/PDF corpus into structured literature matrices, variable-role maps, qualitative mechanism summaries, theory-gap analyses, model candidates, topic cards, and reviewer-style evaluations.
+The Skill does not invent topics from scratch. It reads a real Zotero Collection, subcollection, tag, saved search, or fallback bibliography/PDF corpus, extracts evidence from metadata, abstracts, full-text PDFs, notes, and annotations, then builds topic ideas that remain traceable to the literature base.
 
-## Use Cases
+## Author
 
-This Skill is designed for researchers who need to:
+- Author: 视频号「扣子说AI」
+- Purpose: help researchers convert Zotero literature collections into structured, evidence-grounded empirical research topics.
 
-- Build a structured literature matrix from a Zotero research collection;
-- Classify papers as quantitative, qualitative, mixed-methods, theory, review, method, or meta-analysis papers;
-- Extract independent variables, dependent variables, mediators, moderators, controls, hypotheses, tested paths, and empirical results from quantitative papers;
-- Extract first-order concepts, second-order themes, aggregate dimensions, process mechanisms, and boundary conditions from qualitative papers;
-- Identify theory gaps, mechanism gaps, boundary-condition gaps, context gaps, method gaps, conflicting results, and variable-role gaps;
-- Recombine variable networks into coherent antecedent-mechanism-outcome-boundary models;
-- Generate at least 10 empirical management research topic cards;
-- Evaluate each topic from the perspective of an SSCI management journal reviewer.
+## What It Does
 
-## Workflow
+1. Reads the requested Zotero Collection, subcollection, tag, saved search, or item list first
+2. Classifies each paper as quantitative, qualitative, mixed methods, theory, review, method, or meta-analysis
+3. Extracts research topics, contexts, theories, findings, limitations, and future research directions
+4. Identifies quantitative variable roles, including IVs, DVs, mediators, moderators, controls, hypotheses, results, and measurement sources
+5. Extracts qualitative mechanisms, first-order concepts, second-order themes, aggregate dimensions, and boundary conditions
+6. Synthesizes theory gaps, mechanism gaps, context gaps, method gaps, conflicting results, and variable-role gaps
+7. Builds a variable network and identifies promising role repositioning opportunities
+8. Recombines variables into antecedent-mechanism-outcome-boundary-condition models
+9. Generates at least 10 empirical topic cards
+10. Selects the top 3 research stories
+11. Evaluates each topic from an SSCI-style management reviewer perspective
 
-The Skill follows this evidence-driven workflow:
+## Installation
 
-1. Read the requested Zotero Collection, subcollection, tag, saved search, or item list;
-2. Retrieve metadata, abstracts, tags, notes, annotations, attachment status, and PDF full text where available;
-3. Classify each paper type using evidence from the paper;
-4. Extract general literature information into `literature_matrix.xlsx`;
-5. Extract quantitative variable roles into `variable_role_matrix.xlsx`;
-6. Extract qualitative mechanisms into `qualitative_mechanism_matrix.xlsx`;
-7. Synthesize theory gaps into `theory_gap_matrix.xlsx`;
-8. Build a variable network and model candidates;
-9. Generate topic cards and top-three research stories;
-10. Score each topic using reviewer-style criteria.
+Clone this repository into your Codex skills directory using the new Skill folder name:
 
-## Evidence Discipline
-
-The Skill is intentionally conservative. It must not fabricate literature facts, variable names, theories, findings, DOIs, journal names, or evidence text.
-
-It explicitly marks:
-
-- `仅基于摘要分析` when only metadata or abstract evidence is available;
-- `全文不可用` when full text is missing, inaccessible, incomplete, or garbled;
-- `不足以判断` when the available evidence is insufficient;
-- `低置信度` when a judgment is weakly supported.
-
-All quantitative variable-role extraction must be supported by evidence from model figures, hypotheses, methods, measurement sections, results tables, or discussion sections.
-
-## Example Prompt
-
-After installing the Skill in Codex, you can call it like this:
-
-```text
-Use $management-empirical-topic-builder to analyze my Zotero Collection: entrepreneurship/women entrepreneurship
+```bash
+git clone https://github.com/longkou1988/management-empirical-topic-builder.git ~/.codex/skills/paper-topic-builder
 ```
 
-You may also add focus constraints such as theory, journal set, country, industry, method, year range, or target journal direction.
+Restart Codex. Then invoke the Skill with:
+
+```text
+$paper-topic-builder
+```
+
+If you installed the earlier local folder name `management-empirical-topic-builder`, rename the folder to:
+
+```text
+~/.codex/skills/paper-topic-builder
+```
+
+## Usage
+
+Basic example:
+
+```text
+Use $paper-topic-builder to analyze my Zotero Collection: entrepreneurship/female entrepreneurship
+```
+
+More focused example:
+
+```text
+Use $paper-topic-builder to analyze my Zotero Collection: female entrepreneurship. Focus on financing constraints, entrepreneurial resilience, institutional environment, digital platforms, and SSCI-ready empirical topic ideas.
+```
+
+Tag-based example:
+
+```text
+Use $paper-topic-builder to analyze my Zotero tag: digital entrepreneurship. Generate evidence-grounded empirical topic cards and reviewer evaluations.
+```
+
+## Zotero-First Policy
+
+The Skill prioritizes the Zotero plugin in the active Codex environment. It should not ask the user to manually export `.bib` files or PDFs before attempting Zotero access.
+
+Fallback inputs are used only when:
+
+- the Zotero plugin is unavailable;
+- the requested Collection, subcollection, tag, or item list cannot be resolved;
+- metadata is too incomplete;
+- PDF attachments are missing, inaccessible, unreadable, incomplete, or garbled;
+- the user explicitly provides `.bib`, `.ris`, `.csv`, or a local PDF folder as an alternative source.
 
 ## Outputs
 
-The Skill produces the following files under `output/`:
+The Skill writes the following files under `output/`:
 
-- `literature_matrix.xlsx`
-- `variable_role_matrix.xlsx`
-- `qualitative_mechanism_matrix.xlsx`
-- `theory_gap_matrix.xlsx`
-- `variable_network_summary.md`
-- `topic_cards.md`
-- `model_candidates.md`
-- `final_research_story.md`
-- `reviewer_evaluation.md`
+1. `literature_matrix.xlsx`
+2. `variable_role_matrix.xlsx`
+3. `qualitative_mechanism_matrix.xlsx`
+4. `theory_gap_matrix.xlsx`
+5. `variable_network_summary.md`
+6. `topic_cards.md`
+7. `model_candidates.md`
+8. `final_research_story.md`
+9. `reviewer_evaluation.md`
 
-## Notes
+## Quality Rules
 
-This Skill is designed to use the Zotero plugin first. Fallback bibliography or PDF inputs should be used only when Zotero plugin access fails, permissions are insufficient, metadata is missing, or full text cannot be accessed through Zotero.
+- Do not fabricate literature facts, DOI, journal names, theories, findings, variables, or model paths.
+- Every substantive extraction must be traceable to Zotero metadata, abstract, PDF text, note, annotation, or fallback source file.
+- If only the abstract is available, mark the analysis basis clearly.
+- If full text is unavailable, mark the paper as full text unavailable and state the reason.
+- Unsupported fields must be marked as insufficient evidence.
+- Low-confidence judgments must be labeled.
+- Variable roles require evidence sections, evidence text, and confidence levels.
+- Topic ideas must explain why the proposed variable combination is theoretically coherent rather than a simple variable collage.
+
+## License
+
+MIT
